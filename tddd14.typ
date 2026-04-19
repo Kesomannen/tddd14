@@ -264,6 +264,8 @@ The below table was generated via the subset construction method over our DFA:
 
 Here we marked states which are not both accept or both not accept. This marks all pairs with ${a}$, as that is the only non-accept state.
 
+#pagebreak()
+
 === Table/motivation after iteration 1
 
 #table(
@@ -397,5 +399,42 @@ We split the string as following:
 - $y = a$
 - $z = b b b$
 
-=== Provide an example of $i != 1$ such that $x y^i z in L_1$:
+==== Provide an example of $i != 1$ such that $x y^i z in L_1$:
 
+We choose $i = 3$, yielding the string $x y^i z = a a a a a a a b b b$. We only increased the number of $a$'s in $s$, therefore we are still clearly in the language.
+
+=== (c)
+
+==== 1. State your assumptions on the pumping length $p >= 0$:
+
+We need to prove the statement generally, therefore we cannot make any assumptions on the pumping length. We simply assume that $L_2$ has some  arbitrary pumping length $p$.
+
+==== 2. Choose a string $s in L_2$ such that $|s| >= p$:
+
+We choose $s = b^(p + 1) a^(p + 2)$. $\#a(s) > \#b(s)$ holds for any $p >= 0$, therefore $s in L_2$.
+
+==== 3. For every decomposition $s = x y z$ where $|x y| <= p, |y| > 0$ find a value $i >= 0$ such that $x y^i z in.not L_2$:
+
+For all choices of $x, y, z$ that satisfies the above conditions, the substring $x y$ must only contain $b$'s, since we defined $s$ to start with $p + 1$ repeated $b$'s and $|x y| <= p$. Hence:
+
+1. $y = b^m$ for some $m > 0$,
+2. $x = b^k$ for some $k >= 0$ such that $k + m <= p$ and
+3. $z = b^(p + 1 - k - m)a^(p + 1)$.
+
+This covers all possible decompositions $s = x y z$. To finish the proof, we need to show that there exists an $i >= 0$ such that $x y^i z in.not L_2$. To generate a string that does not belong in our language, we need to pump enough $b$'s to match the number of $a$'s in $s$, that is $\#a(s) - \#b(x z)$. By definition $\#a(s) = p + 2$, and via (2, 3): $\#b(x z) = k + (p + 1 - k - m) = p + 1 - m$. For each increase in $i$, we generate $m$ $b$'s, therefore, to generate an invalid string $x y^i z = b^k b^(i m) b^(p + 1 - k - m) a^(p+2)$, we need:
+
+#align(center)[
+  $i m >= p + 2 - (p + 1 - m)$
+
+  $i m >= m + 1$
+
+  $i >= (m + 1) / m$
+]
+
+We find $i = ceil((m + 1) / m)$ generates a string $x y^i z$ with the same number, or more, $b$'s than $a$'s, therefore $x y^i z in.not L_2$. Via the inverted pumping lemma, we conclude that $L_2$ is not regular.
+
+==== (d) Use the Myhill-Nerode theorem from the lecture notes.
+
+Consider the string $a^i b^j$ where $i, j in NN$. From the DFA of $L_1$, we see that $[a^i b^j] equiv_(L_1) [a^(i + 1) b^j]$ where $i >= 4$, that is, reading one more $a$ is equivalent with our current state. Conversely, $[a^i b^j] equiv_(L_1) [a^i b^(j + 1)]$ where $j >= 3$. This means there a bound on the number of equivalence classes; once we've read 4 $a$'s or 3 $b$'s, we cannot reach any new classes. We conclude the number of equivalence classes is finite, which according to the Myhill-Nerode implies $L_1$ is regular.
+
+The equivalence classes of $L_2$, on the other hand, lacks this constraint. Unlike $L_1$, reading a $b$ beyond the third one is not going to lead us to an equivalent state, because in $L_2$ we then need to read another $a$ to reach an accept state. Formally, $[a^i b^j] equiv.not_(L_2) [a^i b^(j + 1)]$, which creates an infinite number of equivalence classes as $j$ increases.
