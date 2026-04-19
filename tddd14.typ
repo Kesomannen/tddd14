@@ -135,7 +135,9 @@ The below table was generated via the subset construction method over our DFA:
       node(b, $b$, radius: 2em),
       node(d, $d$, radius: 2em, extrude: (-2.5, 0)),
       node(c, $c$, radius: 2em),
-      edge((0, 1), a, "->"),
+      node(qf, $q_f$, radius: 2em, extrude: (-2.5, 0)), 
+      edge((-1, 1), qs, "->"),
+      edge(qs, a, "->", $epsilon$),
       edge(a, b, "->", $0$),
       edge(a, c, "->", $1$),
       edge(b, b, "->", $0$, bend: 130deg),
@@ -143,7 +145,105 @@ The below table was generated via the subset construction method over our DFA:
       edge(b, d, "->", $1$),
       edge(c, d, "->", $0$),
       edge(d, d, "->", $0,1$, bend: 130deg),
+      edge(d, qf, "->", $epsilon$)
     )
+
+    === Step 2: Remove state a.
+
+    #diagram(
+      node-stroke: .05em,
+      node(qs, $q_s$, radius: 2em),
+      node(b, $b$, radius: 2em),
+      node(d, $d$, radius: 2em, extrude: (-2.5, 0)),
+      node(c, $c$, radius: 2em),
+      node(qf, $q_f$, radius: 2em, extrude: (-2.5, 0)), 
+      edge((-1, 1), qs, "->"),
+      edge(qs, b, "->", $0$),
+      edge(qs, c, "->", $1$),
+      edge(b, b, "->", $0$, bend: 130deg),
+      edge(c, c, "->", $1$, bend: -130deg),
+      edge(b, d, "->", $1$),
+      edge(c, d, "->", $0$),
+      edge(d, d, "->", $0,1$, bend: 130deg),
+      edge(d, qf, "->", $epsilon$)
+    )
+
+    #table(
+      columns: (auto, auto, auto, auto, auto, auto, auto, auto),
+      inset: 10pt,
+      align: horizon,
+      table.header([$s_1$], [$s_e$], [$s_2$], [$R_1$], [$R_2$], [$R_3$], [$R_4$], [$R_1R_2^*R_3 + R_4 ("simplified")$]),
+      $q_s$, $a$, $b$, $epsilon$, $emptyset$, $0$, $emptyset$, $0$,
+      $q_s$, $a$, $c$, $epsilon$, $emptyset$, $1$, $emptyset$, $1$
+    )
+
+    === Step 3: Remove state b.
+
+    #diagram(
+      node-stroke: .05em,
+      node(qs, $q_s$, radius: 2em),
+      node(d, $d$, radius: 2em, extrude: (-2.5, 0)),
+      node(c, $c$, radius: 2em),
+      node(qf, $q_f$, radius: 2em, extrude: (-2.5, 0)), 
+      edge((-1, 1), qs, "->"),
+      edge(qs, d, "->", $00^*1$),
+      edge(qs, c, "->", $1$),
+      edge(c, c, "->", $1$, bend: -130deg),
+      edge(c, d, "->", $0$),
+      edge(d, d, "->", $0,1$, bend: 130deg),
+      edge(d, qf, "->", $epsilon$)
+    )
+
+    #table(
+      columns: (auto, auto, auto, auto, auto, auto, auto, auto),
+      inset: 10pt,
+      align: horizon,
+      table.header([$s_1$], [$s_e$], [$s_2$], [$R_1$], [$R_2$], [$R_3$], [$R_4$], [$R_1R_2^*R_3 + R_4 ("simplified")$]),
+      $q_s$, $b$, $d$, $0$, $0$, $1$, $emptyset$, $00^*1$,
+    )
+
+    === Step 4: Remove state c.
+    
+    #diagram(
+      node-stroke: .05em,
+      node(qs, $q_s$, radius: 2em),
+      node(d, $d$, radius: 2em, extrude: (-2.5, 0)),
+      node(qf, $q_f$, radius: 2em, extrude: (-2.5, 0)), 
+      edge((-1, 1), qs, "->"),
+      edge(qs, d, "->", $11^*0 + 00^*1$),
+      edge(d, d, "->", $0,1$, bend: 130deg),
+      edge(d, qf, "->", $epsilon$)
+    )
+
+    #table(
+      columns: (auto, auto, auto, auto, auto, auto, auto, auto),
+      inset: 10pt,
+      align: horizon,
+      table.header([$s_1$], [$s_e$], [$s_2$], [$R_1$], [$R_2$], [$R_3$], [$R_4$], [$R_1R_2^*R_3 + R_4 ("simplified")$]),
+      $q_s$, $c$, $d$, $1$, $1$, $0$, $00^*1$, $11^*0 + 00^*1$,
+    )
+
+    === Step 5 Remove state d.
+
+    #diagram(
+      node-stroke: .05em,
+      node(qs, $q_s$, radius: 2em),
+      node(qf, $q_f$, radius: 2em, extrude: (-2.5, 0)), 
+      edge((-1, 1), qs, "->"),
+      edge(qs, qf, "->", $(11^*0 + 00^*1)(0 + 1)^*$),
+    )
+
+    #table(
+      columns: (auto, auto, auto, auto, auto, auto, auto, auto),
+      inset: 10pt,
+      align: horizon,
+      table.header([$s_1$], [$s_e$], [$s_2$], [$R_1$], [$R_2$], [$R_3$], [$R_4$], [$R_1R_2^*R_3 + R_4 ("simplified")$]),
+      $q_s$, $d$, $q_f$, $11^*0 + 00^*1$, $0 + 1$, $epsilon$, $emptyset$, $(11^*0 + 00^*1)(0 + 1)^*$,
+    )
+
+    === Your regular expression:
+    $(11^*0 + 00^*1)(0 + 1)^*$
+
   ]
 }
 == Exercise 4
