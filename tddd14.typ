@@ -135,7 +135,7 @@ The below table was generated via the subset construction method over our DFA:
       node(b, $b$, radius: 2em),
       node(d, $d$, radius: 2em, extrude: (-2.5, 0)),
       node(c, $c$, radius: 2em),
-      node(qf, $q_f$, radius: 2em, extrude: (-2.5, 0)), 
+      node(qf, $q_f$, radius: 2em, extrude: (-2.5, 0)),
       edge((-1, 1), qs, "->"),
       edge(qs, a, "->", $epsilon$),
       edge(a, b, "->", $0$),
@@ -145,7 +145,7 @@ The below table was generated via the subset construction method over our DFA:
       edge(b, d, "->", $1$),
       edge(c, d, "->", $0$),
       edge(d, d, "->", $0,1$, bend: 130deg),
-      edge(d, qf, "->", $epsilon$)
+      edge(d, qf, "->", $epsilon$),
     )
 
     === Step 2: Remove state a.
@@ -156,7 +156,7 @@ The below table was generated via the subset construction method over our DFA:
       node(b, $b$, radius: 2em),
       node(d, $d$, radius: 2em, extrude: (-2.5, 0)),
       node(c, $c$, radius: 2em),
-      node(qf, $q_f$, radius: 2em, extrude: (-2.5, 0)), 
+      node(qf, $q_f$, radius: 2em, extrude: (-2.5, 0)),
       edge((-1, 1), qs, "->"),
       edge(qs, b, "->", $0$),
       edge(qs, c, "->", $1$),
@@ -165,7 +165,7 @@ The below table was generated via the subset construction method over our DFA:
       edge(b, d, "->", $1$),
       edge(c, d, "->", $0$),
       edge(d, d, "->", $0,1$, bend: 130deg),
-      edge(d, qf, "->", $epsilon$)
+      edge(d, qf, "->", $epsilon$),
     )
 
     #table(
@@ -174,7 +174,7 @@ The below table was generated via the subset construction method over our DFA:
       align: horizon,
       table.header([$s_1$], [$s_e$], [$s_2$], [$R_1$], [$R_2$], [$R_3$], [$R_4$], [$R_1R_2^*R_3 + R_4 ("simplified")$]),
       $q_s$, $a$, $b$, $epsilon$, $emptyset$, $0$, $emptyset$, $0$,
-      $q_s$, $a$, $c$, $epsilon$, $emptyset$, $1$, $emptyset$, $1$
+      $q_s$, $a$, $c$, $epsilon$, $emptyset$, $1$, $emptyset$, $1$,
     )
 
     === Step 3: Remove state b.
@@ -184,14 +184,14 @@ The below table was generated via the subset construction method over our DFA:
       node(qs, $q_s$, radius: 2em),
       node(d, $d$, radius: 2em, extrude: (-2.5, 0)),
       node(c, $c$, radius: 2em),
-      node(qf, $q_f$, radius: 2em, extrude: (-2.5, 0)), 
+      node(qf, $q_f$, radius: 2em, extrude: (-2.5, 0)),
       edge((-1, 1), qs, "->"),
       edge(qs, d, "->", $00^*1$),
       edge(qs, c, "->", $1$),
       edge(c, c, "->", $1$, bend: -130deg),
       edge(c, d, "->", $0$),
       edge(d, d, "->", $0,1$, bend: 130deg),
-      edge(d, qf, "->", $epsilon$)
+      edge(d, qf, "->", $epsilon$),
     )
 
     #table(
@@ -203,16 +203,16 @@ The below table was generated via the subset construction method over our DFA:
     )
 
     === Step 4: Remove state c.
-    
+
     #diagram(
       node-stroke: .05em,
       node(qs, $q_s$, radius: 2em),
       node(d, $d$, radius: 2em, extrude: (-2.5, 0)),
-      node(qf, $q_f$, radius: 2em, extrude: (-2.5, 0)), 
+      node(qf, $q_f$, radius: 2em, extrude: (-2.5, 0)),
       edge((-1, 1), qs, "->"),
       edge(qs, d, "->", $11^*0 + 00^*1$),
       edge(d, d, "->", $0,1$, bend: 130deg),
-      edge(d, qf, "->", $epsilon$)
+      edge(d, qf, "->", $epsilon$),
     )
 
     #table(
@@ -228,7 +228,7 @@ The below table was generated via the subset construction method over our DFA:
     #diagram(
       node-stroke: .05em,
       node(qs, $q_s$, radius: 2em),
-      node(qf, $q_f$, radius: 2em, extrude: (-2.5, 0)), 
+      node(qf, $q_f$, radius: 2em, extrude: (-2.5, 0)),
       edge((-1, 1), qs, "->"),
       edge(qs, qf, "->", $(11^*0 + 00^*1)(0 + 1)^*$),
     )
@@ -248,8 +248,6 @@ The below table was generated via the subset construction method over our DFA:
 }
 == Exercise 4
 
-For each iteration draw the table to the left in the indicated box. To the right you must for each new state that has been marked include a motivation. Thus, if you in iteration $i$ mark a state $x$, then you should have a calculation of the form $delta(x, a) = y$ where (1) $a in Sigma$ is a symbol, and (2) $y$ has been marked in a previous iteration. For states which are _not_ marked you do not have to write anything.
-
 === Table after iteration 0:
 
 #let check = $checkmark$;
@@ -264,7 +262,7 @@ For each iteration draw the table to the left in the indicated box. To the right
   check, "", "", "", $e$,
 )
 
-Here we makred states which are not both accept or both not accept. This marks all pairs with ${a}$, as that is the only non-accept state.
+Here we marked states which are not both accept or both not accept. This marks all pairs with ${a}$, as that is the only non-accept state.
 
 === Table/motivation after iteration 1
 
@@ -277,7 +275,6 @@ Here we makred states which are not both accept or both not accept. This marks a
   check, check, "", $d$, "",
   check, "", check, check, $e$,
 )
-
 
 #table(
   columns: (auto, auto, auto, auto),
@@ -350,15 +347,55 @@ We rename/merge the states as follows:
 
 === (a) DFA for $L_1$:
 
-#diagram(node-stroke: .05em, for a in (0, 1, 2, 3) {
-  for b in (0, 1, 2, 3) {
-    (
-      node((b, a), $q_(a,b)$, radius: 2em, extrude: if a > b {
-        (-2.5, 0)
-      } else {
-        0
-      }),
-      edge((b, a), (b + 1, a), "->", $b$),
-    )
-  }
-});
+#diagram(
+  node-stroke: .05em,
+  for a in (0, 1, 2, 3, 4) {
+    for b in (0, 1, 2, 3) {
+      (
+        node((b, a), $q_(#a,#b)$, radius: 2em, extrude: if a > b {
+          (-2.5, 0)
+        } else {
+          0
+        }),
+        if (a == 4) {
+          edge((b, a), (b, a), "->", $a$, bend: -130deg)
+        } else {
+          edge((b, a), (b, a + 1), "->", $a$)
+        },
+        if (b == 3) {
+          edge((b, a), (4.5, 2), "->", $b$, bend: (-12.5deg * (a - 2)))
+        } else {
+          edge((b, a), (b + 1, a), "->", $b$)
+        },
+      )
+    }
+  },
+  node((4.5, 2), $q_T$, radius: 2em),
+  edge((-1, 0), (0, 0), "->"),
+  edge((4.5, 2), (4.5, 2), "->", $a, b$, bend: 130deg),
+);
+
+=== Motivation/explanation:
+
+We have the states $q_(a,b)$, where $a <= 4$ and $b <= 3$, which we transition to after reading $a$ or more a's, and $b$ b's. The accept states are then naturally ${q_(a,b) | b <= 3 and a > b}$. We also have a trash state $q_T$ for when we read more than 3 $b$'s, as beyond that point the string is always rejected. We don't need to track the number of a's further than 4 since the $a > b$ condition will then always be satisfied, unless we reach 4 b's at which point we'll end up in $q_T$ anyway.
+
+=== (b)
+
+==== Determine a suitable pumping length $p$:
+
+We determine $p = 8$ from the longest (non-repeating) path in our DFA (for example reading $a a a a b b b b$: $q_(0, 0) -> q_(1, 0) -> q_(2, 0) -> q_(3, 0) -> q_(4, 0) -> q_(4, 1) -> q_(4, 2) -> q_(4, 3) -> q_T$).
+
+==== Choose a string $s in L_1$ with $|s| >= p$:
+
+We choose the string $s = a a a a a b b b$. $s$ contains 5 $a$'s and only 3 $b$'s, so it's clear that $s in L_1$.
+
+==== Split $s = x y z$ such that $|x y| <= p, |y| > 0$:
+
+We split the string as following:
+
+- $x = a a a a$
+- $y = a$
+- $z = b b b$
+
+=== Provide an example of $i != 1$ such that $x y^i z in L_1$:
+
