@@ -24,7 +24,7 @@ b, c
 
 === Motivation:
 
-The regular expression accepts any string where there is some 1 followed by some 0, consecutive or not or not.
+The regular expression accepts any string where there is some 1 followed by some 0, consecutive or not.
 
 == (3) $(0 + (0 + 1)^*)(0^* + 1^*)$
 
@@ -44,7 +44,7 @@ a, d, e
 
 === Motivation:
 
-The language of the regular expression can be thought of as the following: once we se $01$, then we cannot see another $0$. Conversely, once we see $10$, we cannot see another $1$.
+The language of the regular expression can be thought of as the following: once we see $01$, then we cannot see another $0$. Conversely, once we see $10$, we cannot see another $1$.
 
 Therefore, b doesn't match as we start with $10$ but have another $1$ as the last symbol. Likewise, c is also invalid because we start with $01$, then immediately read a $0$. e, the empty string, _is_ accepted because we read neither $01$ nor $10$.
 
@@ -69,11 +69,11 @@ The below table was generated via the subset construction method over our DFA:
   inset: 10pt,
   align: horizon,
   table.header([], [*0*], [*1*]),
-  ${a,b,c}$, ${b,e}$, ${d,c}$,
-  ${b,e}$, ${a,b,c}$, ${d}$,
-  ${d,c}$, ${e}$, ${a,b,c}$,
-  ${d}$, ${e}$, ${a,b,c}$,
-  ${e}$, ${a,b,c}$, ${d}$,
+  $->{a,b,c}$, ${b,e}$, ${d,c}$,
+  ${b,e}F$, ${a,b,c}$, ${d}$,
+  ${d,c}F$, ${e}$, ${a,b,c}$,
+  ${d}F$, ${e}$, ${a,b,c}$,
+  ${e}F$, ${a,b,c}$, ${d}$,
 )
 
 === Step 2: draw the resulting DFA.
@@ -262,7 +262,7 @@ The below table was generated via the subset construction method over our DFA:
   check, "", "", "", $e$,
 )
 
-Here we marked states which are not both accept or both not accept. This marks all pairs with ${a}$, as that is the only non-accept state.
+Here we marked states which are not both accept or both not accept. This marks all pairs with $a$, as that is the only non-accept state.
 
 #pagebreak()
 
@@ -419,7 +419,7 @@ For all choices of $x, y, z$ that satisfies the above conditions, the substring 
 
 1. $y = b^m$ for some $m > 0$,
 2. $x = b^k$ for some $k >= 0$ such that $k + m <= p$ and
-3. $z = b^(p + 1 - k - m)a^(p + 1)$.
+3. $z = b^(p + 1 - k - m)a^(p + 2)$.
 
 This covers all possible decompositions $s = x y z$. To finish the proof, we need to show that there exists an $i >= 0$ such that $x y^i z in.not L_2$. To generate a string that does not belong in our language, we need to pump enough $b$'s to match the number of $a$'s in $s$, that is $\#a(s) - \#b(x z)$. By definition $\#a(s) = p + 2$, and via (2, 3): $\#b(x z) = k + (p + 1 - k - m) = p + 1 - m$. For each increase in $i$, we generate $m$ $b$'s, therefore, to generate an invalid string $x y^i z = b^k b^(i m) b^(p + 1 - k - m) a^(p+2)$, we need:
 
@@ -435,6 +435,6 @@ We find $i = ceil((m + 1) / m)$ generates a string $x y^i z$ with the same numbe
 
 ==== (d) Use the Myhill-Nerode theorem from the lecture notes.
 
-Consider the string $a^i b^j$ where $i, j in NN$. From the DFA of $L_1$, we see that $[a^i b^j] equiv_(L_1) [a^(i + 1) b^j]$ where $i >= 4$, that is, reading one more $a$ is equivalent with our current state. Conversely, $[a^i b^j] equiv_(L_1) [a^i b^(j + 1)]$ where $j >= 3$. This means there a bound on the number of equivalence classes; once we've read 4 $a$'s or 3 $b$'s, we cannot reach any new classes. We conclude the number of equivalence classes is finite, which according to the Myhill-Nerode implies $L_1$ is regular.
+Consider the string $a^i b^j$ where $i, j in NN$. From the DFA of $L_1$, we see that $[a^i b^j] equiv_(L_1) [a^(i + 1) b^j]$ where $i >= 4$, that is, reading one more $a$ is equivalent with our current state. Conversely, $[a^i b^j] equiv_(L_1) [a^i b^(j + 1)]$ where $j >= 3$. This means there a bound on the number of equivalence classes; once we've read 4 $a$'s or 3 $b$'s, we cannot reach any new classes. We conclude the number of equivalence classes is finite, which according to the Myhill-Nerode theorem implies $L_1$ is regular.
 
 The equivalence classes of $L_2$, on the other hand, lacks this constraint. Unlike $L_1$, reading a $b$ beyond the third one is not going to lead us to an equivalent state, because in $L_2$ we then need to read another $a$ to reach an accept state. Formally, $[a^i b^j] equiv.not_(L_2) [a^i b^(j + 1)]$, which creates an infinite number of equivalence classes as $j$ increases.
