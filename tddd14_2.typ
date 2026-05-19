@@ -168,7 +168,7 @@ The automaton for this grammar is as follows:
     ),
   ),
   lr-node(
-    (1, 1),
+    (0, 1.5),
     (
       ($S$, $a c dot c$),
       ($B$, $c dot$),
@@ -176,16 +176,88 @@ The automaton for this grammar is as follows:
     (),
   ),
   lr-node(
-    (1, 2),
+    (0, 3),
     (
       ($S$, $a c c dot$),
     ),
     (),
   ),
+  lr-node(
+    (2, 1),
+    (
+      ($B$, $c dot$, $c$),
+    ),
+    (),
+  ),
+  lr-node(
+    (3, 0),
+    (
+      ($B$, $b dot B c$, $c$),
+    ),
+    (
+      ($B$, $dot b B c$, $c$),
+      ($B$, $dot c$, $c$),
+    ),
+  ),
+  lr-node(
+    (2, -1),
+    (
+      ($B$, $b B dot c$),
+    ),
+    (),
+  ),
+  lr-node(
+    (1, -1),
+    (
+      ($B$, $b B c dot$),
+    ),
+    (),
+  ),
+  lr-node(
+    (3, -1),
+    (
+      ($B$, $c dot$, $c$),
+    ),
+    (),
+  ),
+  lr-node(
+    (3, 1.5),
+    (
+      ($B$, $b B dot c$, $c$),
+    ),
+    (),
+  ),
+  lr-node(
+    (3, 2.5),
+    (
+      ($B$, $b B c dot$, $c$),
+    ),
+    (),
+  ),
+  lr-node(
+    (1, 1.5),
+    (
+      ($S$, $a B dot$),
+    ),
+    (),
+  ),
+  node((0, -1), [accept]),
   edge((0, 0), (1, 0), "-|>", $a$),
   edge((1, 0), (2, 0), "-|>", $b$),
-  edge((1, 0), (1, 1), "-|>", $c$),
-  edge((1, 1), (1, 2), "-|>", $c$),
+  edge((1, 0), (0, 1.5), "-|>", $c$, bend: -25deg),
+  edge((0, 1.5), (0, 3), "-|>", $c$),
+  edge((1, 0), (1, 1.5), "-|>", $B$),
+  edge((0, 0), (0, -1), "-|>", $S$),
+  edge((2, 0), (2, 1), "-|>", $c$),
+  edge((2, 0), (3, 0), "-|>", $b$),
+  edge((3, 0), (3, -1), "-|>", $c$),
+  edge((2, 0), (2, -1), "-|>", $B$),
+  edge((2, -1), (1, -1), "-|>", $c$),
+  edge((3, 0), (3, 1.5), "-|>", $B$, bend: 25deg),
+  edge((3, 1.5), (3, 2.5), "-|>", $c$),
+  edge((3, 0), (3, 0), "-|>", $b$, bend: -110deg),
 )
+
+Since we were able to construct a LR(1) parser automaton, the grammar is LR(1).
 
 == Exercise 5
