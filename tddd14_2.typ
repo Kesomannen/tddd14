@@ -3,7 +3,7 @@
 #show heading.where(level: 2): it => pad(top: 1.25em, it)
 #set page(header: [TDDD85, Homework 2 #align(right)[Fredrik Ejsing, Bo Rodin]])
 
-= Homework 1
+= Homework 2
 
 == Exercise 1
 
